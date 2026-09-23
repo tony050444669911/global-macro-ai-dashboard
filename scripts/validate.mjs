@@ -8,6 +8,11 @@ const required = [
   'https://cdn.tailwindcss.com',
   'https://unpkg.com/lucide@latest',
   'id="fast-toggle"',
+  'id="glossary-dialog"',
+  'id="glossary-open"',
+  'id="term-ask"',
+  'aria-live="polite"',
+  'data-term=',
   'detail-block',
   'Macro Expectation Gap',
   'AI Frontier Track',
@@ -19,6 +24,20 @@ const missing = required.filter((needle) => !html.includes(needle));
 if (missing.length) {
   console.error(`Missing required markers: ${missing.join(', ')}`);
   process.exit(1);
+}
+
+const termKeys = [...html.matchAll(/data-term="([^"]+)"/g)].map((match) => match[1]);
+const uniqueTermKeys = [...new Set(termKeys)];
+if (uniqueTermKeys.length < 6 || uniqueTermKeys.length > 10) {
+  console.error(`Expected 6–10 glossary terms, found ${uniqueTermKeys.length}`);
+  process.exit(1);
+}
+
+for (const key of uniqueTermKeys) {
+  if (!html.includes(`'${key}':`) && !html.includes(`"${key}":`)) {
+    console.error(`Glossary trigger has no embedded definition: ${key}`);
+    process.exit(1);
+  }
 }
 
 for (const match of html.matchAll(/href="(https?:\/\/[^\"]+)"/g)) {

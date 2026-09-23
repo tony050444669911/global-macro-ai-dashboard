@@ -24,6 +24,28 @@
     .panel { background: linear-gradient(145deg, rgba(15,23,42,.94), rgba(9,9,11,.94)); }
     .fast-mode .detail-block { display: none !important; }
     .tap { min-height: 44px; }
+    .term-trigger {
+      color: inherit;
+      cursor: help;
+      font: inherit;
+      text-decoration: underline dashed rgba(56, 189, 248, .72) 1px;
+      text-underline-offset: 3px;
+    }
+    .term-trigger:hover { color: #7dd3fc; }
+    #glossary-dialog {
+      box-sizing: border-box;
+      width: min(calc(100% - 1rem), 42rem);
+      max-height: min(88vh, 50rem);
+      margin: auto auto .5rem;
+      padding: 0;
+      border: 1px solid rgba(71, 85, 105, .9);
+      border-radius: 1.5rem;
+      background: #0f172a;
+      color: #e2e8f0;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, .55);
+    }
+    #glossary-dialog::backdrop { background: rgba(2, 6, 23, .78); backdrop-filter: blur(5px); }
+    @media (min-width: 640px) { #glossary-dialog { margin: auto; } }
     a:focus-visible, button:focus-visible { outline: 2px solid #38bdf8; outline-offset: 3px; }
   </style>
 </head>
@@ -40,6 +62,7 @@
       <div class="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0">
         <span class="tap shrink-0 inline-flex items-center gap-2 rounded-xl border border-emerald-400/25 bg-emerald-400/10 px-3 text-xs font-semibold text-emerald-300"><span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>偏 Risk-On</span>
         <span class="tap shrink-0 inline-flex items-center gap-2 rounded-xl border border-slate-700 bg-slate-900 px-3 text-xs text-slate-300"><i data-lucide="clock-3" class="h-4 w-4"></i>閱讀 4 分鐘</span>
+        <button id="glossary-open" type="button" class="tap shrink-0 inline-flex items-center gap-2 rounded-xl border border-sky-400/30 bg-sky-400/10 px-3 text-xs font-bold text-sky-200 hover:bg-sky-400/20 transition"><i data-lucide="book-open" class="h-4 w-4"></i><span>名詞庫 10</span></button>
         <button id="fast-toggle" type="button" aria-pressed="false" class="tap shrink-0 inline-flex items-center gap-2 rounded-xl bg-sky-400 px-3 text-xs font-bold text-slate-950 hover:bg-sky-300 transition"><i data-lucide="zap" class="h-4 w-4"></i><span>極速閱讀</span></button>
       </div>
     </div>
@@ -52,13 +75,13 @@
         <div>
           <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-[.18em] text-sky-300"><i data-lucide="activity" class="h-4 w-4"></i>01 / 今日主線</div>
           <h1 id="overview-title" class="mt-3 text-2xl sm:text-4xl font-black tracking-tight text-white">油價降溫替風險資產鬆綁，<br class="hidden sm:block">但高利率仍是 AI 估值的壓力測試</h1>
-          <p class="mt-4 text-sm sm:text-base leading-relaxed text-slate-300">中東原油供應改善，Brent 從戰事高點回落至 100 美元附近，緩和通膨與長債壓力；同時 AI 應用需求與記憶體股推升 Nasdaq、SOX 及台股。不過，Fed 官員仍為再次升息保留空間，美元與短端殖利率偏強，形成「獲利成長樂觀、折現率仍高」的核心矛盾。</p>
+          <p class="mt-4 text-sm sm:text-base leading-relaxed text-slate-300">中東原油供應改善，Brent 從戰事高點回落至 100 美元附近，緩和通膨與長債壓力；同時 AI 應用需求與記憶體股推升 Nasdaq、<button type="button" class="term-trigger" data-term="sox">SOX</button> 及台股。不過，Fed 官員仍為再次升息保留空間，美元與短端<button type="button" class="term-trigger" data-term="yield">殖利率</button>偏強，形成「獲利成長樂觀、<button type="button" class="term-trigger" data-term="discount-rate">折現率</button>仍高」的核心矛盾。</p>
           <p class="detail-block mt-4 rounded-2xl border border-indigo-400/20 bg-indigo-400/5 px-4 py-3 text-sm leading-relaxed text-indigo-100"><strong class="text-indigo-300">新手白話版：</strong>像一家生意很好的科技公司，訂單真的很多，但銀行貸款利率也很高。今天市場先為「生意好、油價降」買單，卻沒有解除「資金昂貴」這個長期壓力。對台股而言，AI 供應鏈仍強，但估值越高，越怕利率再往上。</p>
         </div>
         <div class="grid grid-cols-1 gap-3 text-sm">
           <div class="rounded-2xl border border-amber-400/20 bg-amber-400/5 p-4">
             <p class="text-xs font-bold text-amber-300">核心矛盾</p>
-            <p class="mt-1 leading-relaxed">AI 盈利與 Capex 延續 ↔ 10Y 殖利率仍接近 5%</p>
+            <p class="mt-1 leading-relaxed">AI 盈利與 <button type="button" class="term-trigger" data-term="capex">Capex</button> 延續 ↔ 10Y 殖利率仍接近 5%</p>
           </div>
           <div class="rounded-2xl border border-fuchsia-400/20 bg-fuchsia-400/5 p-4">
             <p class="text-xs font-bold text-fuchsia-300">未來 24–48 小時</p>
@@ -77,9 +100,9 @@
         <p class="hidden sm:block text-xs text-slate-500">美債／美股採 9/22 收盤；商品與 DXY 採 9/23 可得報價</p>
       </div>
       <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
-        <article class="panel rounded-2xl border border-slate-800 p-4"><p class="text-[11px] font-semibold text-slate-500">美債 10Y</p><p class="mt-2 text-2xl font-black text-white">4.96%</p><p class="mt-1 text-xs text-slate-400">日變動 0 bp</p></article>
+        <article class="panel rounded-2xl border border-slate-800 p-4"><p class="text-[11px] font-semibold text-slate-500">美債 10Y</p><p class="mt-2 text-2xl font-black text-white">4.96%</p><p class="mt-1 text-xs text-slate-400">日變動 0 <button type="button" class="term-trigger" data-term="bp">bp</button></p></article>
         <article class="panel rounded-2xl border border-slate-800 p-4"><p class="text-[11px] font-semibold text-slate-500">10Y − 2Y</p><p class="mt-2 text-2xl font-black text-white">+25 bp</p><p class="mt-1 text-xs text-emerald-300">正斜率</p></article>
-        <article class="panel rounded-2xl border border-slate-800 p-4"><p class="text-[11px] font-semibold text-slate-500">美元 DXY</p><p class="mt-2 text-2xl font-black text-white">100.71</p><p class="mt-1 text-xs text-emerald-300">+0.16%</p></article>
+        <article class="panel rounded-2xl border border-slate-800 p-4"><p class="text-[11px] font-semibold text-slate-500">美元 <button type="button" class="term-trigger" data-term="dxy">DXY</button></p><p class="mt-2 text-2xl font-black text-white">100.71</p><p class="mt-1 text-xs text-emerald-300">+0.16%</p></article>
         <article class="panel rounded-2xl border border-slate-800 p-4"><p class="text-[11px] font-semibold text-slate-500">Brent</p><p class="mt-2 text-2xl font-black text-white">$99.18</p><p class="mt-1 text-xs text-rose-300">−0.1%</p></article>
         <article class="panel rounded-2xl border border-slate-800 p-4"><p class="text-[11px] font-semibold text-slate-500">現貨黃金</p><p class="mt-2 text-2xl font-black text-white">$4,316.78</p><p class="mt-1 text-xs text-rose-300">−0.9%</p></article>
         <article class="panel rounded-2xl border border-slate-800 p-4"><p class="text-[11px] font-semibold text-slate-500">SOX</p><p class="mt-2 text-2xl font-black text-white">12,689.82</p><p class="mt-1 text-xs text-emerald-300">+2.06%</p></article>
@@ -101,7 +124,7 @@
           <span class="rounded-full bg-amber-400/10 px-3 py-1.5 text-xs text-amber-300">10 月再升息機率：54%</span>
         </div>
         <div class="mt-5 space-y-4 text-sm leading-relaxed">
-          <p><strong class="text-white">傳導邏輯：</strong>Barkin 指出 7 月 headline PCE 3.7%、core PCE 3.3%，且逾六成 PCE 分項漲幅高於 3%；勞動市場仍有韌性，因此政策風險偏向繼續壓通膨。市場從「一次校正」重新評估為「可能進入短升息循環」。</p>
+          <p><strong class="text-white">傳導邏輯：</strong>Barkin 指出 7 月 headline <button type="button" class="term-trigger" data-term="pce">PCE</button> 3.7%、core PCE 3.3%，且逾六成 PCE 分項漲幅高於 3%；勞動市場仍有韌性，因此政策風險偏向繼續壓通膨。市場從「一次校正」重新評估為「可能進入短升息循環」。</p>
           <p><strong class="text-white">定價重估：</strong>短天期美債與美元獲支撐；黃金、日圓及高槓桿成長股承壓。AI 股若要抵銷更高折現率，必須用實際營收、現金流與 Capex 效率持續交卷。</p>
           <p class="detail-block rounded-2xl border border-amber-400/20 bg-amber-400/5 p-4"><strong class="text-amber-300">新手白話版：</strong>考試答案「升 1 碼」大家早猜到，所以不是驚喜；真正影響市場的是老師補一句「可能還要再考一次」。股票不一定立刻跌，因為好公司可以靠更快的獲利成長抵銷利率，但門檻變高了。</p>
         </div>
@@ -142,8 +165,8 @@
       <h2 id="narrative-title" class="mt-1 text-xl sm:text-2xl font-bold text-white">長週期命題動態追蹤</h2>
       <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
         <article class="panel rounded-2xl border border-slate-800 p-5"><div class="flex items-center justify-between gap-2"><p class="font-bold text-white">美國著陸型態</p><span class="rounded-full bg-amber-400/10 px-2.5 py-1 text-[11px] text-amber-300">再通膨風險強化</span></div><p class="mt-3 text-sm leading-relaxed text-slate-300">油價雖回落，Fed 仍指出通膨廣度偏高、消費與就業有韌性。市場焦點從衰退風險轉向「成長不弱、利率更久更高」。</p><p class="detail-block mt-3 text-xs text-slate-500">下一驗證：PCE、初領失業金、Flash PMI 價格分項。</p></article>
-        <article class="panel rounded-2xl border border-slate-800 p-5"><div class="flex items-center justify-between gap-2"><p class="font-bold text-white">AI Capex ROI</p><span class="rounded-full bg-emerald-400/10 px-2.5 py-1 text-[11px] text-emerald-300">推進中</span></div><p class="mt-3 text-sm leading-relaxed text-slate-300">應用下載、記憶體與晶圓需求支撐樂觀敘事；但 BIS 警告競賽型投資可能形成過度建置，收入兌現速度是關鍵。</p><p class="detail-block mt-3 text-xs text-slate-500">下一驗證：CSP Capex／AI 收入、推理毛利率、電力併網進度。</p></article>
-        <article class="panel rounded-2xl border border-slate-800 p-5"><div class="flex items-center justify-between gap-2"><p class="font-bold text-white">流動性與套利交易</p><span class="rounded-full bg-sky-400/10 px-2.5 py-1 text-[11px] text-sky-300">壓力升溫</span></div><p class="mt-3 text-sm leading-relaxed text-slate-300">美短債殖利率與美元偏強、USD/JPY 約 157.6；日圓弱勢令干預風險升高，若快速升值可能觸發 carry trade 平倉。</p><p class="detail-block mt-3 text-xs text-slate-500">下一驗證：USD/JPY 160、2Y 美債、跨幣別基差與 VIX。</p></article>
+        <article class="panel rounded-2xl border border-slate-800 p-5"><div class="flex items-center justify-between gap-2"><p class="font-bold text-white">AI Capex <button type="button" class="term-trigger" data-term="roi">ROI</button></p><span class="rounded-full bg-emerald-400/10 px-2.5 py-1 text-[11px] text-emerald-300">推進中</span></div><p class="mt-3 text-sm leading-relaxed text-slate-300">應用下載、記憶體與晶圓需求支撐樂觀敘事；但 BIS 警告競賽型投資可能形成過度建置，收入兌現速度是關鍵。</p><p class="detail-block mt-3 text-xs text-slate-500">下一驗證：<button type="button" class="term-trigger" data-term="csp">CSP</button> Capex／AI 收入、推理毛利率、電力併網進度。</p></article>
+        <article class="panel rounded-2xl border border-slate-800 p-5"><div class="flex items-center justify-between gap-2"><p class="font-bold text-white">流動性與套利交易</p><span class="rounded-full bg-sky-400/10 px-2.5 py-1 text-[11px] text-sky-300">壓力升溫</span></div><p class="mt-3 text-sm leading-relaxed text-slate-300">美短債殖利率與美元偏強、USD/JPY 約 157.6；日圓弱勢令干預風險升高，若快速升值可能觸發 <button type="button" class="term-trigger" data-term="carry-trade">carry trade</button> 平倉。</p><p class="detail-block mt-3 text-xs text-slate-500">下一驗證：USD/JPY 160、2Y 美債、跨幣別基差與 VIX。</p></article>
       </div>
     </section>
 
@@ -180,7 +203,98 @@
     </div>
   </footer>
 
+  <dialog id="glossary-dialog" aria-labelledby="glossary-title">
+    <div class="max-h-[88vh] overflow-y-auto p-5 sm:p-6">
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <p class="text-[11px] font-bold uppercase tracking-[.18em] text-sky-300">Tap-to-learn Glossary</p>
+          <h2 id="glossary-title" class="mt-1 text-xl font-black text-white">今日名詞秒懂</h2>
+          <p class="mt-1 text-xs leading-relaxed text-slate-400">點正文虛線名詞，原頁理解，不必另外搜尋。</p>
+        </div>
+        <button id="glossary-close" type="button" aria-label="關閉名詞庫" class="tap grid min-w-11 place-items-center rounded-xl border border-slate-700 text-slate-300 hover:text-white"><i data-lucide="x" class="h-5 w-5"></i></button>
+      </div>
+
+      <section id="glossary-detail" class="mt-5 rounded-2xl border border-sky-400/25 bg-sky-400/5 p-4" aria-live="polite">
+        <div class="flex flex-wrap items-center gap-2">
+          <h3 id="term-name" class="text-lg font-black text-white"></h3>
+          <span id="term-en" class="rounded-full bg-slate-800 px-2.5 py-1 text-[11px] text-slate-300"></span>
+        </div>
+        <div class="mt-4 grid gap-3 sm:grid-cols-2 text-sm leading-relaxed">
+          <div class="rounded-xl bg-slate-950/55 p-3"><p class="text-[11px] font-bold text-sky-300">15 秒定義</p><p id="term-definition" class="mt-1 text-slate-200"></p></div>
+          <div class="rounded-xl bg-slate-950/55 p-3"><p class="text-[11px] font-bold text-violet-300">生活比喻</p><p id="term-analogy" class="mt-1 text-slate-200"></p></div>
+          <div class="rounded-xl bg-slate-950/55 p-3"><p class="text-[11px] font-bold text-amber-300">今天為何重要</p><p id="term-why" class="mt-1 text-slate-200"></p></div>
+          <div class="rounded-xl bg-slate-950/55 p-3"><p class="text-[11px] font-bold text-emerald-300">台灣關聯</p><p id="term-taiwan" class="mt-1 text-slate-200"></p></div>
+        </div>
+        <a id="term-ask" class="tap mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-sky-400 px-4 py-2 text-xs font-black text-slate-950 hover:bg-sky-300" href="#"><i data-lucide="send" class="h-4 w-4"></i>到 Telegram 繼續問這個名詞</a>
+      </section>
+
+      <section class="mt-5" aria-labelledby="glossary-list-title">
+        <h3 id="glossary-list-title" class="text-xs font-bold text-slate-400">本期 10 個核心名詞</h3>
+        <div id="glossary-list" class="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3"></div>
+      </section>
+    </div>
+  </dialog>
+
   <script>
+    const glossary = {
+      'sox': { name: '費城半導體指數', en: 'SOX', definition: '追蹤美國主要半導體公司的股價指數，可快速觀察晶片景氣與市場風險偏好。', analogy: '像半導體產業的班級平均分數，單看它就能先知道整班表現。', why: '今日 SOX 上漲，表示高利率壓力下，市場仍願意為 AI 與晶片獲利成長付錢。', taiwan: '台積電與台灣半導體供應鏈常與 SOX 同方向，但公司組成與交易時段不同。' },
+      'yield': { name: '殖利率', en: 'Yield', definition: '債券價格換算成的年化報酬率；債券價格下跌時，殖利率通常上升。', analogy: '同一張固定付息券買得越便宜，你實際拿到的報酬率就越高。', why: '美債殖利率接近 5%，代表資金成本高，也提高持有股票的機會成本。', taiwan: '高美債殖利率常支撐美元、影響外資流向，並壓縮高估值台股的本益比。' },
+      'discount-rate': { name: '折現率', en: 'Discount Rate', definition: '把未來收入換算成今天價值時使用的比率；折現率越高，未來現金流的現值越低。', analogy: '一年後拿到 100 元不等於今天的 100 元；利率越高，今天願意為它付的錢越少。', why: 'AI 公司大量價值來自未來獲利，因此利率上升時估值通常更敏感。', taiwan: '台灣成長型電子股與供應鏈評價也會受全球折現率變動影響。' },
+      'capex': { name: '資本支出', en: 'Capex', definition: '企業為長期設備、廠房、資料中心或基礎設施投入的資金。', analogy: '餐廳買新烤箱、擴店面，是為未來做生意先花的大錢。', why: 'AI 熱潮能否延續，要看雲端商的資料中心投資是否轉成收入與現金流。', taiwan: 'Capex 增加通常有利伺服器、晶片、散熱、電源與先進封裝供應鏈。' },
+      'bp': { name: '基點', en: 'Basis Point (bp)', definition: '衡量利率變動的單位；1 bp 等於 0.01 個百分點，100 bp 等於 1 個百分點。', analogy: '像把 1 個百分點再切成 100 小格，方便描述細微變化。', why: '利率市場常只動幾個 bp，但大額債券部位的價格影響仍可能很大。', taiwan: '央行利率、債券殖利率與銀行利差分析都常使用 bp。' },
+      'dxy': { name: '美元指數', en: 'DXY', definition: '衡量美元相對一籃子主要貨幣強弱的指數，歐元權重最高。', analogy: '不是美元對單一貨幣的比賽，而是美元對一組主要對手的綜合成績。', why: 'DXY 偏強通常會壓抑以美元計價的商品，並收緊全球金融條件。', taiwan: '美元走強時台幣往往承壓，會影響外資、進口成本與出口商換匯。' },
+      'pce': { name: '個人消費支出物價指數', en: 'PCE Price Index', definition: '衡量美國消費價格變化的指標，也是 Fed 判斷通膨時偏好的重要尺度。', analogy: '像一份會隨家庭實際購買行為調整權重的生活成本帳單。', why: 'PCE 高於目標會增加 Fed 維持高利率或升息的可能性。', taiwan: '它會透過美債、美元與全球風險偏好，間接影響台股與台幣。' },
+      'roi': { name: '投資報酬率', en: 'Return on Investment (ROI)', definition: '投入資金後得到的淨收益相對於投入成本的比例。', analogy: '花 100 元買工具，最後多賺 20 元，重點就是這 20 元是否值得前面的投入。', why: '市場正檢查龐大 AI 支出是否真的帶來營收、節省成本或提升毛利。', taiwan: '若雲端商 AI ROI 不佳，可能放慢伺服器與晶片訂單；反之則支撐供應鏈。' },
+      'csp': { name: '雲端服務供應商', en: 'Cloud Service Provider (CSP)', definition: '提供運算、儲存、資料庫與 AI 平台的公司，例如 AWS、Microsoft Azure、Google Cloud。', analogy: '像出租水電與廚房設備的超大型共享工廠，企業按需求租用。', why: '大型 CSP 是 AI 晶片與資料中心 Capex 的主要買家。', taiwan: '其採購直接牽動台灣伺服器 ODM、晶片、網通、電源與散熱供應鏈。' },
+      'carry-trade': { name: '套利交易', en: 'Carry Trade', definition: '借入低利率貨幣，換成高利率或高報酬資產，賺取利差與資產收益。', analogy: '用低利房貸借錢，再把錢放到較高收益的地方；匯率反轉時可能一次吐回獲利。', why: '日圓快速升值時，投資人可能被迫平倉，造成股票與高風險資產同步賣壓。', taiwan: '全球去槓桿時，外資可能同步降低台股部位，放大短期波動。' }
+    };
+
+    const glossaryDialog = document.getElementById('glossary-dialog');
+    const glossaryList = document.getElementById('glossary-list');
+    let lastTermTrigger = null;
+    function showTerm(key, trigger = null) {
+      const term = glossary[key];
+      if (!term) return;
+      lastTermTrigger = trigger || lastTermTrigger;
+      document.getElementById('term-name').textContent = term.name;
+      document.getElementById('term-en').textContent = term.en;
+      document.getElementById('term-definition').textContent = term.definition;
+      document.getElementById('term-analogy').textContent = term.analogy;
+      document.getElementById('term-why').textContent = term.why;
+      document.getElementById('term-taiwan').textContent = term.taiwan;
+      const askUrl = new URL('https://t.me/share/url');
+      askUrl.searchParams.set('url', window.location.href);
+      askUrl.searchParams.set('text', `請用更多例子解釋晨報名詞「${term.name}（${term.en}）」`);
+      const askLink = document.getElementById('term-ask');
+      askLink.href = askUrl.toString();
+      askLink.target = '_blank';
+      askLink.rel = 'noopener';
+      if (!glossaryDialog.open) glossaryDialog.showModal();
+    }
+    Object.entries(glossary).forEach(([key, term]) => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'tap rounded-xl border border-slate-700 bg-slate-950/50 px-3 py-2 text-left text-xs font-semibold text-slate-200 hover:border-sky-400/50 hover:text-sky-300';
+      button.textContent = term.en;
+      button.addEventListener('click', () => showTerm(key, button));
+      glossaryList.appendChild(button);
+    });
+    document.querySelectorAll('[data-term]').forEach((button) => {
+      const term = glossary[button.dataset.term];
+      if (term) button.setAttribute('aria-label', `${button.textContent}：點擊查看名詞解釋`);
+      button.addEventListener('click', () => showTerm(button.dataset.term, button));
+    });
+    document.getElementById('glossary-open').addEventListener('click', (event) => showTerm('yield', event.currentTarget));
+    document.getElementById('glossary-close').addEventListener('click', () => glossaryDialog.close());
+    glossaryDialog.addEventListener('click', (event) => {
+      const rect = glossaryDialog.getBoundingClientRect();
+      const inside = event.clientX >= rect.left && event.clientX <= rect.right && event.clientY >= rect.top && event.clientY <= rect.bottom;
+      if (!inside) glossaryDialog.close();
+    });
+    glossaryDialog.addEventListener('close', () => lastTermTrigger?.focus());
+    const linkedTerm = new URLSearchParams(window.location.hash.slice(1)).get('term');
+    if (linkedTerm && glossary[linkedTerm]) showTerm(linkedTerm);
+
     const toggle = document.getElementById('fast-toggle');
     const toggleLabel = toggle.querySelector('span');
     toggle.addEventListener('click', () => {
