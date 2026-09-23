@@ -17,4 +17,12 @@ python3 -m http.server 4173 --directory docs
 
 ## 內容規範
 
-每日更新前必須完整讀取 `/Users/0504T/.openclaw/workspace/prompts/daily-global-macro-brief.md`，查核原始信源、標示資料截點，並在部署後驗證公開網址。
+每日更新前必須完整讀取：
+
+- `/Users/0504T/.openclaw/workspace/prompts/daily-global-macro-brief.md`：完整研究、版型、信源與發布規範。
+- `/Users/0504T/.openclaw/workspace/prompts/daily-global-macro-tracking-topics.md`：排程實際讀取、可快速增刪的長期追蹤清單。
+- `config/tracking-topics.md`：隨專案保存的版本化參考副本。
+
+目前額外啟用「全球安全與地緣韌性雷達」以及「AI 新模型／產品發布雷達」。前者涵蓋全球而非只有歐洲；後者會為重要新品標示學習優先級，並提供 15 分鐘上手行動。完成後仍須查核原始信源、標示資料截點，並在部署後驗證公開網址。
+
+每期另內建 6～10 個「名詞秒懂」項目。正文第一次出現的重要術語可直接點擊，在原頁查看 15 秒定義、生活比喻、當日重要性與台灣關聯；頂部「名詞庫」可集中瀏覽，並能帶著名詞問題回 Telegram 深入追問。所有資料與互動皆嵌入單一 HTML。
