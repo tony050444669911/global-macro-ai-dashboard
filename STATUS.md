@@ -33,6 +33,14 @@
 2. 首次執行後用 `openclaw automations runs 8f731431-6d9b-4030-9eb2-d1feda64a739` 檢查結果，並確認 Telegram 只有一則兩行短訊息。
 3. 若 GitHub Pages 日後不可用，備案為 Vercel 靜態站；切換時須同步更新規範檔與排程訊息中的網址。
 
+## 2026-09-24 待合併功能
+
+- 分支：`feature/global-risk-ai-launch-tracker`
+- 新增全球性的「安全與地緣韌性雷達」，涵蓋歐洲／俄烏、印太、中東、南亞、非洲、美洲與跨區域混合威脅；最多 3 項重大增量，無重大變化不硬湊。
+- 新增高優先「AI 新模型與產品發布雷達」，追蹤過去 24～72 小時官方發布，標註學習優先級並提供 15 分鐘上手行動。
+- 新增 `config/tracking-topics.md` 作為可快速增刪的版本化主題清單；排程實際讀取 workspace 中的對應 runtime 清單。
+- automation `8f731431-6d9b-4030-9eb2-d1feda64a739` 的 payload 已更新並讀回確認；排程時間、Telegram 投遞與失敗告警維持不變。
+
 ## 重要注意
 
 - 使用者口中的「telegra」＝Telegram 只傳連結，不是 `telegra.ph`；後者不支援自訂 CSS／JS，與新規範衝突。
